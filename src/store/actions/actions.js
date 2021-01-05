@@ -12,17 +12,16 @@ export const initProducts = () => {
     if (localProducts == null) {
       localStorage.setItem("products", JSON.stringify(data));
 
-      dispatch(productsInit(data));
+      dispatch({
+        type: PRODUCTS_INIT,
+        payload: data,
+      });
     } else {
-      dispatch(productsInit(localProducts));
+      dispatch({
+        type: PRODUCTS_INIT,
+        payload: localProducts,
+      });
     }
-  };
-};
-
-export const productsInit = (products) => {
-  return {
-    type: PRODUCTS_INIT,
-    products,
   };
 };
 
@@ -33,14 +32,12 @@ export const addProduct = (newProduct) => {
     const newProducts = [...products, newProduct];
     localStorage.setItem("products", JSON.stringify(newProducts));
 
-    dispatch(productAdd(newProduct));
+    dispatch({
+      type: ADD_PRODUCT,
+      payload: newProduct,
+    });
   };
 };
-
-export const productAdd = (product) => ({
-  type: ADD_PRODUCT,
-  product,
-});
 
 export const deleteProduct = (id) => {
   return (dispatch) => {
@@ -49,24 +46,18 @@ export const deleteProduct = (id) => {
 
     localStorage.setItem("products", JSON.stringify(newProducts));
 
-    dispatch(productDelete(id));
+    dispatch({
+      type: DELETE_PRODUCT,
+      payload: id,
+    });
   };
 };
-
-export const productDelete = (id) => ({
-  type: DELETE_PRODUCT,
-  id,
-});
 
 export const deleteProducts = () => {
   return (dispatch) => {
     localStorage.setItem("products", "[]");
-    dispatch(productsDelete());
-  };
-};
-
-export const productsDelete = () => {
-  return {
-    type: DELETE_PRODUCTS,
+    dispatch({
+      type: DELETE_PRODUCTS,
+    });
   };
 };

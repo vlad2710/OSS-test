@@ -14,19 +14,19 @@ export default function mainReducer(state = defaultState, action) {
     case PRODUCTS_INIT:
       return {
         ...state,
-        products: action.products,
+        products: action.payload,
       };
 
     case ADD_PRODUCT:
       return {
         ...state,
-        products: [...state.products, action.product],
+        products: [...state.products, action.payload],
       };
 
     case DELETE_PRODUCT:
       return {
         ...state,
-        products: state.products.filter((item) => item.id != action.id),
+        products: state.products.filter((item) => item.id != action.payload),
       };
     case DELETE_PRODUCTS:
       return {
