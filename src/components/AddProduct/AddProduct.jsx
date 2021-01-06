@@ -48,6 +48,11 @@ class AddProduct extends Component {
     this.handleSubmit = (e) => {
       const { products } = this.props;
       e.preventDefault();
+
+      if (!this.validateForm()) {
+        return false;
+      }
+
       const id = products.length != 0 ? products[products.length - 1].id : 0;
       const newProduct = {
         id: id + 1,
@@ -63,12 +68,21 @@ class AddProduct extends Component {
         price: "",
       });
     };
+
+    this.validateForm = () => {
+      const { productName, description, price } = this.state;
+      if (!productName || !description || !price) {
+        alert("Please fill in all the fields");
+        return false;
+      }
+
+      return true;
+    };
   }
 
   render() {
     const { classes, role } = this.props;
     const { productName, description, price } = this.state;
-
     return (
       <>
         {role == ADMIN ? (
